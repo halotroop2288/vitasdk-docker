@@ -19,7 +19,8 @@ RUN useradd -ms /bin/bash user && echo "user:user" | chpasswd && adduser user su
 
 RUN echo "Installing VitaSDK"
 RUN git clone https://github.com/vitasdk/vdpm && cd vdpm
-RUN ./bootstrap-vitasdk.sh && ./install-all.sh
+RUN ./bootstrap-vitasdk.sh
+RUN ./install-all.sh
 
 USER root
 CMD ["/bin/bash"]
