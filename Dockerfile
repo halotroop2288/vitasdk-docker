@@ -18,9 +18,11 @@ RUN echo "Adding non-root user..."
 RUN useradd -ms /bin/bash user && echo "user:user" | chpasswd && adduser user sudo
 
 RUN echo "Installing VitaSDK"
-RUN git clone https://github.com/vitasdk/vdpm && cd vdpm
+RUN git clone https://github.com/vitasdk/vdpm
+WORKDIR /build/vdpm
 RUN ./bootstrap-vitasdk.sh
 RUN ./install-all.sh
+WORKDIR /build
 
 USER root
 CMD ["/bin/bash"]
