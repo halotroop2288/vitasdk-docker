@@ -11,7 +11,7 @@ WORKDIR /build
 
 RUN echo "Installing dependencies..."
 RUN apt-get update
-RUN apt-get install -y wget git-core cmake curl make xz-utils python apt-transport-https ca-certificates gnupg software-properties-common
+RUN apt-get install -y apt-transport-https ca-certificates git-core gnupg cmake curl make python software-properties-common sudo wget xz-utils
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN echo "Adding non-root user..."
