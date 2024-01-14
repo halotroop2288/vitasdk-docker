@@ -13,25 +13,18 @@ RUN date
 
 WORKDIR /build
 
-RUN \
-    DEBIAN_FRONTEND=noninteractive && \
-    echo "Installing dependencies..." && \
-    apt-get update && \
-    apt-get install -y sudo wget curl make git-core xz-utils python apt-transport-https ca-certificates gnupg software-properties-common && \
-    echo "Installing Latest CMake Version..." && \
-    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add - && \
-    apt-add-repository 'deb http://archive.ubuntu.com/ubuntu/ focal main' && \
-    apt-get update && \
-    apt-get install -y cmake && \
-    echo "Adding non-root user..." && \
-    useradd -ms /bin/bash user && \
-    echo "user:user" | chpasswd && adduser user sudo
+RUN DEBIAN_FRONTEND=noninteractive
+RUN echo "Installing dependencies..."
+RUN apt-get update && apt-get install -y sudo wget curl make git-core xz-utils python apt-transport-https ca-certificates gnupg software-properties-common
+RUN echo "Installing Latest CMake Version..."
+RUN apt-add-repository 'deb http://archive.ubuntu.com/ubuntu/ focal main'
+RUN apt-get update && apt-get install -y cmake
+RUN echo "Adding non-root user..."
+RUN useradd -ms /bin/bash user && echo "user:user" | chpasswd && adduser user sudo
 
-RUN \
-    git clone https://github.com/vitasdk/vdpm && \
-    cd vdpm && \
-    ./bootstrap-vitasdk.sh && \
-    ./install-all.sh
+# Install VitaSDK
+RUN git clone https://github.com/vitasdk/vdpm && cd vdpm
+RUN ./bootstrap-vitasdk.sh && ./install-all.sh
 
 USER root
 CMD ["/bin/bash"]
