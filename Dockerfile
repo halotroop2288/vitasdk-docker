@@ -3,17 +3,12 @@ MAINTAINER Caroline Joy Bell <halotroop2288@proton.me>
 MAINTAINER Antonio Aloisio <gnuton@gnuton.org>
 MAINTAINER Thomas Perl <m@thp.io>
 
+ENV DEBIAN_FRONTEND=noninteractive
 ENV VITASDK /usr/local/vitasdk
 ENV PATH ${PATH}:${VITASDK}/bin
 
-# Fix CI locking up at user input
-FROM postgres:10
-ENV TZ=Europe/London
-RUN date
-
 WORKDIR /build
 
-RUN DEBIAN_FRONTEND=noninteractive
 RUN echo "Installing dependencies..."
 RUN apt-get update && apt-get install make git-core cmake python cmake
 RUN echo "Adding non-root user..."
