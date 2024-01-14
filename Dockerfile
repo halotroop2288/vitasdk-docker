@@ -5,7 +5,11 @@ MAINTAINER Thomas Perl <m@thp.io>
 
 ENV VITASDK /usr/local/vitasdk
 ENV PATH ${PATH}:${VITASDK}/bin
+
+# Fix CI locking up at user input
+FROM postgres:10
 ENV TZ=Europe/London
+RUN date
 
 WORKDIR /build
 
