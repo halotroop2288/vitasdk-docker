@@ -15,10 +15,7 @@ WORKDIR /build
 
 RUN DEBIAN_FRONTEND=noninteractive
 RUN echo "Installing dependencies..."
-RUN apt-get update && apt-get install -y sudo wget curl make git-core xz-utils python apt-transport-https ca-certificates gnupg software-properties-common
-RUN echo "Installing Latest CMake Version..."
-RUN apt-add-repository 'deb http://archive.ubuntu.com/ubuntu/ focal main'
-RUN apt-get update && apt-get install -y cmake
+RUN apt-get update && apt-get install make git-core cmake python cmake
 RUN echo "Adding non-root user..."
 RUN useradd -ms /bin/bash user && echo "user:user" | chpasswd && adduser user sudo
 
